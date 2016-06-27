@@ -3,6 +3,23 @@ $(document).ready(function(){
 	//Ajax call to get the data
 	var jsonArray;
 	
+	$("#invokeEngine").click(function(){
+		$.ajax({
+			  type: "GET",
+			  url: "/spark/engine/invoke",
+			  method: "GET",
+			  dataType: 'json',
+			  success: function(data){
+				  jsonArray = data;
+				  //alert(jsonArray[0].name);
+			  },
+			  error: function(){
+				  alert('Error in getting data.');
+			  }
+		});
+	});
+	
+	
 	$.ajax({
 		  type: "GET",
 		  url: "/spark/test",
@@ -298,21 +315,29 @@ $(document).ready(function(){
 		// Set chart options
 		   var options = {'title' : 'AHT of agents.',
 		      hAxis: {
-		         title: 'Date'
+		         title: 'Date',
+		         format: "dd-MMM"
 		      },
 		      vAxis: {
 		         title: 'AHT'
 		      },   
-		      'width':900,
+		     //'width':900,
 		      'height':500,
 		      pointsVisible: true,
-		      smoothLine: true
+		      smoothLine: true,
+		      
+		      trendlines: {
+		          0: {}
+		        }
 		   };
 
         var chart = new google.visualization.LineChart(document.getElementById("googlechart"));
 
         chart.draw(data, options);
-		 
+        
+        var chart1 = new google.visualization.LineChart(document.getElementById("googlechart1"));
+        chart1.draw(data, options);
+        
 		/*var data = new google.visualization.DataTable();
 		   data.addColumn('string', 'Month');
 		   data.addColumn('number', 'Tokyo');
