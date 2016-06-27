@@ -24,9 +24,14 @@ public class WebController {
 		this.platformUserService = platformUserService;
 	}
 
-	@RequestMapping("/test")
-	public String sayHi(HttpServletRequest request, Model model) {
+	@RequestMapping("/aht")
+	public String getAhtReports(HttpServletRequest request, Model model) {
 		return "hello";
+	}
+	
+	@RequestMapping("/persona")
+	public String getPersonaReports(HttpServletRequest request, Model model) {
+		return "persona";
 	}
 
 	@RequestMapping("")
