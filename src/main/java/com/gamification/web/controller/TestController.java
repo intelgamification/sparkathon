@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamification.web.model.AhtStreamData;
 import com.gamification.web.model.PlatformUser;
 import com.gamification.web.model.ReportAgentData;
 import com.gamification.web.model.ReportChartData;
 import com.gamification.web.model.ReportDateData;
 import com.gamification.web.model.UserData;
+import com.gamification.web.service.AhtStreamDataService;
 import com.gamification.web.service.PlatformUserService;
 import com.gamification.web.test.City;
 import com.gamification.web.utils.AgentDataComparator;
@@ -30,6 +32,9 @@ public class TestController {
 	
 	@Autowired
 	private PlatformUserService platformUserService;
+	
+	@Autowired
+	private AhtStreamDataService ahtStreamDataService; 
 	
 	/**
 	 * This method is returning the Json array as a response. 
@@ -131,6 +136,13 @@ public class TestController {
 		
 
 		return chartData;
+	}
+	
+	@RequestMapping(value = "get-aht-stream", method = RequestMethod.GET, headers="Accept=application/json" )	
+	public AhtStreamData getAhtStream() {
+		
+		return ahtStreamDataService.getAhtStream();
+		
 	}
 	
 }

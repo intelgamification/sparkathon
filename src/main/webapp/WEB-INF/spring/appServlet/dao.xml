@@ -25,6 +25,7 @@
 			<list>
 				<value>com.gamification.web.entity.UserDataEntity</value>
 				<value>com.gamification.web.entity.PlatformUserEntity</value>
+				<value>com.gamification.web.entity.AhtStreamData</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
