@@ -42,13 +42,7 @@ public class PlatformUserDAOImpl implements PlatformUserDAO{
 	}
 
 	public PlatformUserEntity getUserById(String entityId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		//PlatformUserEntity platformUser = (PlatformUserEntity) session.load(PlatformUserEntity.class, new Integer(entityId));
-		/*Criteria criteria = session.createCriteria(PlatformUserEntity.class);
-		criteria.add(Restrictions.eqProperty("entityId", new Integer(entityId).toString()));
-		PlatformUserEntity platformUserEntity = (PlatformUserEntity) criteria.uniqueResult();*/
-		
-		
+		Session session = this.sessionFactory.getCurrentSession();		
 		String hql="FROM PlatformUserEntity PU WHERE PU.entityId like " + entityId ;
 		Query query =session.createQuery(hql);
 		PlatformUserEntity platformUserEntity = (PlatformUserEntity) query.uniqueResult();
@@ -56,4 +50,12 @@ public class PlatformUserDAOImpl implements PlatformUserDAO{
 		return platformUserEntity;
 	}
 
+	public List<PlatformUserEntity> getUsersAHTByIds(List<String> entityIds) {
+		Session session = this.sessionFactory.getCurrentSession();		
+		String hql="FROM PlatformUserEntity PU WHERE PU.entityId IN (:entityIds)" ;
+		Query query =session.createQuery(hql).setParameterList("entityIds", entityIds);
+		List<PlatformUserEntity> platformUserEntities =  query.list();
+		return platformUserEntities;	
+	}
+	
 }

@@ -1,7 +1,10 @@
 package com.gamification.web.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.genetics.ListPopulation;
+import org.apache.xerces.dom.DOMXSImplementationSourceImpl;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +39,7 @@ public class PlatformUserServiceImpl implements PlatformUserService {
 		this.platformUserDAO = platformUserDAO;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public PlatformUser getUserById(String entityId) {
 		PlatformUserEntity platformUserEntity = platformUserDAO.getUserById(entityId);
 
@@ -47,6 +50,17 @@ public class PlatformUserServiceImpl implements PlatformUserService {
 
 	public PlatformUser getUsersByIds(List<String> entityIds) {
 		return null;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public List<PlatformUser> getUsersAHTByIds(List<String> entityIds) {
+		List<PlatformUserEntity> platformUserEntities = platformUserDAO.getUsersAHTByIds(entityIds);
+		List<PlatformUser> platformUsers = new ArrayList<PlatformUser>();
+
+		for (PlatformUserEntity entity : platformUserEntities) {
+			platformUsers.add(dozerMapper.map(entity, PlatformUser.class));
+		}
+		return platformUsers;
 	}
 
 }

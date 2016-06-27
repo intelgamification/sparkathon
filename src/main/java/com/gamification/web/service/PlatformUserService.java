@@ -10,4 +10,6 @@ public interface PlatformUserService {
 
 	PlatformUser getUsersByIds(List<String> entityIds);
 
+	List<PlatformUser> getUsersAHTByIds(List<String> entityIds);
+
 }

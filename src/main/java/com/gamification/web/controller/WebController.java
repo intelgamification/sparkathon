@@ -31,7 +31,6 @@ public class WebController {
 
 	@RequestMapping("")
 	public String getUser() {
-		System.out.println("Hi");
 		PlatformUser platformUser=	platformUserService.getUserById("1141");
 		System.out.println("data received: " + platformUser.getUsersData().size());
 		return "hello";

@@ -9,5 +9,7 @@ public interface PlatformUserDAO {
 	List<PlatformUserEntity> getUsersByIds(List<String> entityIds);
 	
 	PlatformUserEntity getUserById(String entityId);
+	
+	List<PlatformUserEntity> getUsersAHTByIds(List<String> entityIds);
 
 }
