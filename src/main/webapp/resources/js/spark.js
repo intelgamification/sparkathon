@@ -38,23 +38,34 @@ $(document).ready(function(){
 	
 	if($("#googlechart").length > 0){
 		googleLineChart();
+		recursively_ajax();
 	}
 	
+	function recursively_ajax(){
+	    
+	    $.ajax({
+	        type:"GET",
+	        url: "/spark/get-aht-stream",
+	        success: function(data){
+	            var html = "Minimum value of AHT in the window interval (30 seconds) is " + data.minimumAht + " for the agent: " + data.agentName;
+	            $("#msg").html(html);
+	        	setTimeout(recursively_ajax, 11000);
+	        }
+	    });
+	}
 	
 	if($("#persona").length > 0){
 		personaChart();
 	}
 	
 	function googleLineChart(){
-		
 		google.charts.load('current', {'packages':['corechart']});
 	    google.charts.setOnLoadCallback(drawChart);
 	    google.charts.setOnLoadCallback(drawChart2);
-	    
 	}
 	
+	
 	function personaChart(){
-		
 		google.charts.load('current', {'packages':['corechart']});
 	    google.charts.setOnLoadCallback(drawPersonaChart);
 	    google.charts.setOnLoadCallback(drawPersonaChart2);

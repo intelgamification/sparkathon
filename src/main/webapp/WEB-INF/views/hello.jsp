@@ -24,5 +24,8 @@
   <div id="googlechart1" style="width: 50%; height: 500px; float:left">
   </div>
   
+  <div id="msg">
+  </div>
+  
 </body>
 </html>
