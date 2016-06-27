@@ -6,16 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>test </title>
-<script type="text/javascript" src="${contextPath}/spark/resources/js/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" src="${contextPath}/spark/resources/js/spark.js"></script>
-<script type="text/javascript" src="${contextPath}/spark/resources/js/d3.js"></script>
-<link rel="stylesheet" href="${contextPath}/spark/resources/css/style.css"/>
+<script type="text/javascript" src="${contextPath}/spark/js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="${contextPath}/spark/js/spark.js"></script>
+<script type="text/javascript" src="${contextPath}/spark/js/d3.js"></script>
+<script type="text/javascript" src="${contextPath}/spark/js/googlecharts.js"></script>
+
+<link rel="stylesheet" href="${contextPath}/spark/css/style.css"/>
 
 </head>
 <body>
-  hello
-  <div id="barchart">
-  
-  </div>                
+              
+  <div id="googlechart" style="width: 900px; height: 500px">
+  </div>
 </body>
 </html>
