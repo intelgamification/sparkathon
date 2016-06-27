@@ -1,12 +1,24 @@
 $(document).ready(function(){
-
-
-
-	
-	// ---------------------------------------------------------------------- //
 	
 	//Ajax call to get the data
 	var jsonArray;
+	
+	$("#invokeEngine").click(function(){
+		$.ajax({
+			  type: "GET",
+			  url: "/spark/engine/invoke",
+			  method: "GET",
+			  dataType: 'json',
+			  success: function(data){
+				  jsonArray = data;
+				  //alert(jsonArray[0].name);
+			  },
+			  error: function(){
+				  alert('Error in getting data.');
+			  }
+		});
+	});
+	
 	
 	$.ajax({
 		  type: "GET",
@@ -14,7 +26,7 @@ $(document).ready(function(){
 		  dataType: 'json',
 		  success: function(data){
 			  jsonArray = data;
-			  alert(jsonArray[0].name);
+			  //alert(jsonArray[0].name);
 		  },
 		  error: function(){
 			  alert('Error in getting data.');
@@ -22,67 +34,328 @@ $(document).ready(function(){
 	});
 	
 	
-	//Drawing Bar chart
-	var w = 800;
-	var h = 400;
-	var padding = 30;
+	//drawMultiLineChart();
 	
-	var dataset = [
-	                [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-	                [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
-	              ];
+	if($("#googlechart").length > 0){
+		googleLineChart();
+	}
 	
 	
+	if($("#persona").length > 0){
+		personaChart();
+	}
 	
-	
-	var margin = {top: 20, right: 20, bottom: 70, left: 40},
-    width = 600 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-	
-	var svg = d3.select("#barchart")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-	
-	var xScale = d3.scale.linear()
-    .domain([0, d3.max(dataset, function(d) { return d[0]; })])
-    .range([0, width]);
-	
-	var yScale = d3.scale.linear()
-    .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-    .range([height, 0]);
-	
+	function googleLineChart(){
 		
-	var xAxis = d3.svg.axis()
-    .scale(xScale)
-    .orient("bottom")
-    .ticks(10);
+		google.charts.load('current', {'packages':['corechart']});
+	    google.charts.setOnLoadCallback(drawChart);
+	    google.charts.setOnLoadCallback(drawChart2);
+	    
+	}
 	
-	svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+	function personaChart(){
+		
+		google.charts.load('current', {'packages':['corechart']});
+	    google.charts.setOnLoadCallback(drawPersonaChart);
+	    google.charts.setOnLoadCallback(drawPersonaChart2);
+	    
+	}
 	
-	var yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left")
-    .ticks(10);
+	function drawChart() {
+		
+		var jsonArray;
+		
+		$.ajax({
+			  type: "GET",
+			  url: "/spark/get-participants-aht-details",
+			  dataType: 'json',
+			  async: false,
+			  success: function(data){
+				  jsonData = data.dateData;
+				  console.log(JSON.stringify(jsonData));
+				          
+			  },
+			  error: function(){
+				  alert('Error in getting data.');
+			  }
+		});
+		
+		
+		var dataArray = new Array();
+		
+		var data = new google.visualization.DataTable();
+		
+		data.addColumn('date', 'reportDate');
+		
+		var ahtData = jsonData[0].agentData;
+		
+		for(var j=0; j < ahtData.length; j++){
+			data.addColumn('number', ahtData[j].agentName);
+		}	
+		
+		for(var i=0; i < jsonData.length; i++){
+			
+			var ahtData = jsonData[i].agentData;			
+			var tempArray = [new Date(Date.parse(jsonData[i].reportDate))];
+			
+			for(var j=0; j < ahtData.length; j++){
+				tempArray.push(ahtData[j].aht);
+			}			
+			
+			console.log(tempArray);			
+			data.addRow(tempArray);
+			
+		}
+		
+		  
+		// Set chart options
+		   var options = {'title' : 'AHT of participating agents.',
+		      hAxis: {
+		         title: 'Date',
+		         format: "dd-MMM"
+		      },
+		      vAxis: {
+		         title: 'AHT',
+		         ticks: [0, 25, 50, 75, 100],
+		         viewWindow: {
+		             max:100,
+		             min:0
+		         }
+		      },   
+		     //'width':900,
+		      'height':500,
+		      pointsVisible: true,
+		      smoothLine: true,
+		      
+		      trendlines: {
+		          0: {}
+		        }
+		   };
+
+        var chart = new google.visualization.LineChart(document.getElementById("googlechart"));
+        chart.draw(data, options);
+        
+    }
 	
-	//Create Y axis
-	svg.append("g")
-	    .attr("class", "axis")
-	    .attr("transform", "translate(0,0)")
-	    .call(yAxis);
+function drawChart2() {
+		
+		
+		var jsonArray;
+		
+		$.ajax({
+			  type: "GET",
+			  url: "/spark/get-unparticipants-aht-details",
+			  dataType: 'json',
+			  async: false,
+			  success: function(data){
+				  jsonData = data.dateData;
+				  console.log(JSON.stringify(jsonData));
+				          
+			  },
+			  error: function(){
+				  alert('Error in getting data.');
+			  }
+		});
+		
+		
+		var dataArray = new Array();
+		
+		var data = new google.visualization.DataTable();
+		
+		data.addColumn('date', 'reportDate');
+		
+		var ahtData = jsonData[0].agentData;
+		
+		for(var j=0; j < ahtData.length; j++){
+			data.addColumn('number', ahtData[j].agentName);
+		}	
+		
+		for(var i=0; i < jsonData.length; i++){
+			
+			var ahtData = jsonData[i].agentData;			
+			var tempArray = [new Date(Date.parse(jsonData[i].reportDate))];
+			
+			for(var j=0; j < ahtData.length; j++){
+				tempArray.push(ahtData[j].aht);
+			}			
+			
+			console.log(tempArray);			
+			data.addRow(tempArray);
+			
+		}
+		
+		  
+		// Set chart options
+		   var options = {'title' : 'AHT of non participating agents.',
+		      hAxis: {
+		         title: 'Date',
+		         format: "dd-MMM"
+		         
+		         
+		      },
+		      vAxis: {
+		         title: 'AHT',
+		         ticks: [0, 25, 50, 75, 100],
+		         viewWindow: {
+		             max:100,
+		             min:0
+		         }
+		      },   
+		     //'width':900,
+		      'height':500,
+		      pointsVisible: true,
+		      smoothLine: true,
+		      
+		      trendlines: {
+		          0: {}
+		        }
+		   };
+
+        var chart = new google.visualization.LineChart(document.getElementById("googlechart1"));
+        chart.draw(data, options);
+           
+    }
+
+function drawPersonaChart() {
 	
-	svg.selectAll("bar")
-    .data(dataset)
-    .enter().append("rect")
-    .style("fill", "steelblue")
-    .attr("x", function(d) { return xScale(d[0]); })
-    .attr("width", 20)
-    .attr("y", function(d) { return yScale(d[1]); })
-    .attr("height", function(d) { return height - yScale(d[1]); });
+	var jsonArray;
+	
+	$.ajax({
+		  type: "GET",
+		  url: "/spark/get-participants-aht-details",
+		  dataType: 'json',
+		  async: false,
+		  success: function(data){
+			  jsonData = data.dateData;
+			  console.log(JSON.stringify(jsonData));
+			          
+		  },
+		  error: function(){
+			  alert('Error in getting data.');
+		  }
+	});
+	
+	
+	var dataArray = new Array();
+	
+	var data = new google.visualization.DataTable();
+	
+	data.addColumn('date', 'reportDate');
+	
+	var ahtData = jsonData[0].agentData;
+	
+	for(var j=0; j < ahtData.length; j++){
+		data.addColumn('number', ahtData[j].agentName);
+	}	
+	
+	for(var i=0; i < jsonData.length; i++){
+		
+		var ahtData = jsonData[i].agentData;			
+		var tempArray = [new Date(Date.parse(jsonData[i].reportDate))];
+		
+		for(var j=0; j < ahtData.length; j++){
+			tempArray.push(ahtData[j].agentPersona);
+		}			
+		
+		console.log(tempArray);			
+		data.addRow(tempArray);
+		
+	}
+	
+	  
+	// Set chart options
+	   var options = {'title' : 'Persona of participating agents.',
+	      hAxis: {
+	         title: 'Date',
+	         format: "dd-MMM"
+	      },
+	      vAxis: {
+	         title: 'Persona'
+	      },   
+	     //'width':900,
+	      'height':500,
+	      pointsVisible: true,
+	      smoothLine: true,
+	      
+	      trendlines: {
+	          0: {}
+	        }
+	   };
+
+	   var chart = new google.visualization.LineChart(document.getElementById("persona"));
+	   chart.draw(data, options);
+    
+	}
+	
+function drawPersonaChart2() {
+	
+	var jsonArray;
+	
+	$.ajax({
+		  type: "GET",
+		  url: "/spark/get-unparticipants-aht-details",
+		  dataType: 'json',
+		  async: false,
+		  success: function(data){
+			  jsonData = data.dateData;
+			  console.log(JSON.stringify(jsonData));
+			          
+		  },
+		  error: function(){
+			  alert('Error in getting data.');
+		  }
+	});
+	
+	
+	var dataArray = new Array();
+	
+	var data = new google.visualization.DataTable();
+	
+	data.addColumn('date', 'reportDate');
+	
+	var ahtData = jsonData[0].agentData;
+	
+	for(var j=0; j < ahtData.length; j++){
+		data.addColumn('number', ahtData[j].agentName);
+	}	
+	
+	for(var i=0; i < jsonData.length; i++){
+		
+		var ahtData = jsonData[i].agentData;			
+		var tempArray = [new Date(Date.parse(jsonData[i].reportDate))];
+		
+		for(var j=0; j < ahtData.length; j++){
+			tempArray.push(ahtData[j].agentPersona);
+		}			
+		
+		console.log(tempArray);			
+		data.addRow(tempArray);
+		
+	}
+	
+	  
+	// Set chart options
+	   var options = {'title' : 'Persona of non-participating agents.',
+	      hAxis: {
+	         title: 'Date',
+	         format: "dd-MMM"
+	      },
+	      vAxis: {
+	         title: 'Persona'
+	      },   
+	     //'width':900,
+	      'height':500,
+	      pointsVisible: true,
+	      smoothLine: true,
+	      
+	      trendlines: {
+	          0: {}
+	        }
+	   };
+
+	   var chart = new google.visualization.LineChart(document.getElementById("persona1"));
+	   chart.draw(data, options);
+    
+	}
 	
 });

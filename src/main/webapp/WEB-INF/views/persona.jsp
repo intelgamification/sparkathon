@@ -16,12 +16,9 @@
 </head>
 <body>
               
-  <div>
-  <input id="invokeEngine" class="btn" type="button" value="Invoke Engine"/>
-  </div>            
-  <div id="googlechart" style="width: 50%; height: 500px; float:left">
+  <div id="persona" style="width: 50%; height: 500px; float:left">
   </div>
-  <div id="googlechart1" style="width: 50%; height: 500px; float:left">
+  <div id="persona1" style="width: 50%; height: 500px; float:left">
   </div>
   
 </body>
