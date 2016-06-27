@@ -329,4 +329,8 @@
 		</dependency>
 		
 	</dependencies>
+	
+	<build>
+  		<finalName>spark</finalName>
+	</build>
 </project>
