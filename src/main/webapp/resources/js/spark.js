@@ -217,11 +217,12 @@ $(document).ready(function(){
 		
 		$.ajax({
 			  type: "GET",
-			  url: "/spark/test",
+			  url: "/spark/get-participants-aht-details",
 			  dataType: 'json',
-			  success: function(data1){
-				  //jsonArray = data1;
-				  console.log(JSON.stringify(data1));
+			  async: false,
+			  success: function(data){
+				  jsonData = data.dateData;
+				  console.log(JSON.stringify(jsonData));
 				          
 			  },
 			  error: function(){
@@ -230,7 +231,7 @@ $(document).ready(function(){
 		});
 		
 		
-		var jsonData = [
+		/*var jsonData = [
 		            {
 		                "Date": "2016-06-01",
 		                "Data": [
@@ -282,31 +283,31 @@ $(document).ready(function(){
 		                    }
 		                ]
 		            }
-		        ];
+		        ];*/
+		
 		
 		var dataArray = new Array();
 		
 		var data = new google.visualization.DataTable();
 		
-		data.addColumn('date', 'Date');
+		data.addColumn('date', 'reportDate');
 		
-		var ahtData = jsonData[0].Data;
+		var ahtData = jsonData[0].agentData;
 		
 		for(var j=0; j < ahtData.length; j++){
-			data.addColumn('number', ahtData[j].Agent);
+			data.addColumn('number', ahtData[j].agentName);
 		}	
 		
 		for(var i=0; i < jsonData.length; i++){
 			
-			var ahtData = jsonData[i].Data;			
-			var tempArray = [new Date(Date.parse(jsonData[i].Date))];
+			var ahtData = jsonData[i].agentData;			
+			var tempArray = [new Date(Date.parse(jsonData[i].reportDate))];
 			
 			for(var j=0; j < ahtData.length; j++){
-				tempArray.push(ahtData[j].AHT);
+				tempArray.push(ahtData[j].aht);
 			}			
 			
-			console.log(tempArray);
-			
+			console.log(tempArray);			
 			data.addRow(tempArray);
 			
 		}
@@ -360,7 +361,7 @@ $(document).ready(function(){
 		      ['Dec',  9.6,  2.5,  1.0, 4.8]
 		   ]);*/
 		   
-		   
     }
+	
 	
 });

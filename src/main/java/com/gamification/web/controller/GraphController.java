@@ -36,44 +36,5 @@ public class GraphController {
 		this.platformUserService = platformUserService;
 	}
 
-	@RequestMapping("get-participants-aht-details")
-	public ReportChartData getParticipantsAHT() {
-		List<String> participants = Arrays.asList("1141", "1051", "1110", "1278", "1010", "1164", "1028", "1117",
-				"1244", "1282");
-		List<PlatformUser> platformUsers = platformUserService.getUsersAHTByIds(participants);
-		ReportChartData chartData =new ReportChartData();
-		Map<String, ReportDateData> responseMap = new HashMap<String, ReportDateData>();
-		for (PlatformUser user : platformUsers) {
-			for(UserData userData : user.getUsersData()){
-				Date metricDate=userData.getMetricDate();
-				String stringDate= DateUtil.getStringFormattedDate(metricDate);
-				ReportDateData value = responseMap.get(stringDate);
-				if(value == null){
-					value = new ReportDateData();
-					value.setReportDate(stringDate);					
-					responseMap.put(stringDate, value);
-				}
-				ReportAgentData agentData = new ReportAgentData();
-				agentData.setAgentName(user.getFirstName() +" "+user.getLastName());
-				agentData.setAht(userData.getAht());
-				agentData.setInteractions(userData.getInteractions());
-				agentData.setProdEfficiency(userData.getProductionEfficiency());
-				value.getAgentData().add(agentData);
-			}
-			
-		}
-		
-		List<ReportDateData> reportDateDatas = new ArrayList<ReportDateData>(responseMap.values());
-		Collections.sort(reportDateDatas, new ReportDateDataComparator());
-		for(ReportDateData dateData: reportDateDatas){
-			Collections.sort(dateData.getAgentData(), new AgentDataComparator());
-		}
-		chartData.setDateData(reportDateDatas);
-		
-
-		return chartData;
-	}
-	
-	
 
 }
