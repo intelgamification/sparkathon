@@ -53,7 +53,7 @@
         </field> -->
     </mapping>
     
-    <mapping map-id="platformData" type="bi-directional">
+    <mapping map-id="ahtStreamData" type="bi-directional">
         <class-a>com.gamification.web.model.AhtStreamData</class-a>
         <class-b>com.gamification.web.entity.AhtStreamData</class-b>        
     </mapping>
