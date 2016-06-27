@@ -1,4 +1,4 @@
-package controller;
+package com.gamification.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -8,10 +8,26 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
 		<property name="driverClassName"
 			value="#{applicationProperties['jdbc.driverClassName']}" />
-		<property name="url" value="#{applicationProperties['anvesh.db.url']}" />
-		<property name="username" value="#{applicationProperties['anvesh.db.user']}" />
+		<property name="url" value="#{applicationProperties['spark.db.url']}" />
+		<property name="username" value="#{applicationProperties['spark.db.user']}" />
 		<property name="password"
-			value="#{applicationProperties['anvesh.db.password']}" />
+			value="#{applicationProperties['spark.db.password']}" />
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<!-- <value>com.gamification.web.entity.Person</value> -->
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
 	</bean>
 </beans>	  
 	    

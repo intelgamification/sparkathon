@@ -1,4 +1,4 @@
-package test;
+package com.gamification.web.test;
 
 public class City {
 

@@ -1,13 +1,14 @@
-package controller;
+package com.gamification.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import test.City;
+import com.gamification.web.test.City;
 
 @RestController  
 public class TestController {
