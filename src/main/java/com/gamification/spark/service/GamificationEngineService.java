@@ -1,5 +1,7 @@
 package com.gamification.spark.service;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,10 @@ public class GamificationEngineService {
 	
 	@RequestMapping(value = "/invoke", method = RequestMethod.GET, headers="Accept=application/json")
 	public String invokeEngine(HttpServletRequest request ,Model model){
+		Date startDate = new Date();
 		gamificaitonEngine.invokeEngine();
-		return "hello";
+		Date endDate = new Date();
+		long duration = endDate.getTime() - startDate.getTime();
+		return "Gmaificaiton Engine completed in " + duration/1000 + " seconds.";
 	}
 }
