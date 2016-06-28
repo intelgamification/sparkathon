@@ -29,7 +29,7 @@
   <div id="googlechart1" style="width: 50%; height: 500px; float:left">
   </div>
   
-  <div id="msg">
+  <div id="msg" class="header" style="font-weight: bold;">
   </div>
   
 </body>
