@@ -8,29 +8,14 @@ $(document).ready(function(){
 			  type: "GET",
 			  url: "/spark/engine/invoke",
 			  method: "GET",
-			  dataType: 'json',
+			  dataType: 'text',
 			  success: function(data){
-				  jsonArray = data;
-				  //alert(jsonArray[0].name);
+				  alert(data);
 			  },
 			  error: function(){
 				  alert('Error in getting data.');
 			  }
 		});
-	});
-	
-	
-	$.ajax({
-		  type: "GET",
-		  url: "/spark/test",
-		  dataType: 'json',
-		  success: function(data){
-			  jsonArray = data;
-			  //alert(jsonArray[0].name);
-		  },
-		  error: function(){
-			  alert('Error in getting data.');
-		  }
 	});
 	
 	
