@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>test </title>
+<title>Agent Persona graphs</title>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/spark.js"></script>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/d3.js"></script>
@@ -16,6 +16,10 @@
 </head>
 <body>
    
+   <div id="loading">
+  		<img id="loading-image" src="${contextPath}/spark/resources/images/loading.gif" alt="Loading..." />
+	</div>
+	
    <div class="header">
    	<h1> Agent Persona graphs. </h1>
    </div>           

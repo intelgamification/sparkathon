@@ -44,6 +44,8 @@ $(document).ready(function(){
 	}
 	
 	function googleLineChart(){
+		
+		$("#loading").show();
 		google.charts.load('current', {'packages':['corechart']});
 	    google.charts.setOnLoadCallback(drawChart);
 	    google.charts.setOnLoadCallback(drawChart2);
@@ -51,6 +53,7 @@ $(document).ready(function(){
 	
 	
 	function personaChart(){
+		$("#loading").show();
 		google.charts.load('current', {'packages':['corechart']});
 	    google.charts.setOnLoadCallback(drawPersonaChart);
 	    google.charts.setOnLoadCallback(drawPersonaChart2);
@@ -67,11 +70,13 @@ $(document).ready(function(){
 			  dataType: 'json',
 			  async: false,
 			  success: function(data){
+				  $("#loading").hide();
 				  jsonData = data.dateData;
 				  console.log(JSON.stringify(jsonData));
 				          
 			  },
 			  error: function(){
+				  $("#loading").hide();
 				  alert('Error in getting data.');
 			  }
 		});
@@ -118,7 +123,7 @@ $(document).ready(function(){
 		             min:0
 		         }
 		      },   
-		     //'width':900,
+		     
 		      'height':500,
 		      pointsVisible: true,
 		      smoothLine: true,
@@ -144,11 +149,11 @@ function drawChart2() {
 			  dataType: 'json',
 			  async: false,
 			  success: function(data){
+				  $("#loading").hide();
 				  jsonData = data.dateData;
-				  console.log(JSON.stringify(jsonData));
-				          
 			  },
 			  error: function(){
+				  $("#loading").hide();
 				  alert('Error in getting data.');
 			  }
 		});
@@ -209,6 +214,8 @@ function drawChart2() {
 
         var chart = new google.visualization.LineChart(document.getElementById("googlechart1"));
         chart.draw(data, options);
+        
+        $("#loading").hide();
            
     }
 
@@ -222,8 +229,8 @@ function drawPersonaChart() {
 		  dataType: 'json',
 		  async: false,
 		  success: function(data){
+			  $("#loading").hide();
 			  jsonData = data.dateData;
-			  console.log(JSON.stringify(jsonData));
 			          
 		  },
 		  error: function(){
@@ -294,8 +301,7 @@ function drawPersonaChart2() {
 		  async: false,
 		  success: function(data){
 			  jsonData = data.dateData;
-			  console.log(JSON.stringify(jsonData));
-			          
+			  $("#loading").hide();       
 		  },
 		  error: function(){
 			  alert('Error in getting data.');

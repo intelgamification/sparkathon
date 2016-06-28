@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>test </title>
+<title>Rules Engine</title>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/spark.js"></script>
 <script type="text/javascript" src="${contextPath}/spark/resources/js/d3.js"></script>
@@ -19,11 +19,11 @@
    <div class="header">
    	<h1> Run Rules Engine </h1>
    </div>           
-  <div>
-  <input id="invokeEngine" class="btn" type="button" value="Invoke Engine"/>
+  <div class="header" style="margin-bottom:20px;">
+  	<input id="invokeEngine" class="btn" type="button" value="Invoke Engine"/>
   </div>            
   
-  <div id="msg">
+  <div class="header" id="msg">
   </div>
   
 </body>
