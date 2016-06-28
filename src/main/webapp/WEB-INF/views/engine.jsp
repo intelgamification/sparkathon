@@ -17,11 +17,13 @@
 <body>
    
    <div class="header">
-   	<h1> Agent Persona graphs. </h1>
+   	<h1> Run Rules Engine </h1>
    </div>           
-  <div id="persona" style="width: 50%; height: 500px; float:left">
-  </div>
-  <div id="persona1" style="width: 50%; height: 500px; float:left">
+  <div>
+  <input id="invokeEngine" class="btn" type="button" value="Invoke Engine"/>
+  </div>            
+  
+  <div id="msg">
   </div>
   
 </body>

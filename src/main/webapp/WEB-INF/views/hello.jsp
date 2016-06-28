@@ -15,10 +15,11 @@
 
 </head>
 <body>
-              
-  <div>
-  <input id="invokeEngine" class="btn" type="button" value="Invoke Engine"/>
-  </div>            
+   
+   <div class="header">
+   	<h1> Agent AHT graphs </h1>
+   </div>           
+            
   <div id="googlechart" style="width: 50%; height: 500px; float:left">
   </div>
   <div id="googlechart1" style="width: 50%; height: 500px; float:left">

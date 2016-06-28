@@ -33,6 +33,11 @@ public class WebController {
 	public String getPersonaReports(HttpServletRequest request, Model model) {
 		return "persona";
 	}
+	
+	@RequestMapping("/engine")
+	public String getEngine(HttpServletRequest request, Model model) {
+		return "engine";
+	}
 
 	@RequestMapping("")
 	public String getUser() {

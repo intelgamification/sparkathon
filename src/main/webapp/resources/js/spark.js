@@ -10,7 +10,7 @@ $(document).ready(function(){
 			  method: "GET",
 			  dataType: 'text',
 			  success: function(data){
-				  alert(data);
+				  $("#msg").html(data);
 			  },
 			  error: function(){
 				  alert('Error in getting data.');
